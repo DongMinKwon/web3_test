@@ -21,9 +21,43 @@ async function getAccounts() {
   }
 }
 
+async function getGasPrise() {
+  try {
+    const getGasPrice = await getWeb3().eth.getGasPrice();
+    console.log(getGasPrice);
+    return getGasPrice;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
+async function getBlock() {
+  try {
+    const getBlock = await getWeb3().eth.getBlock();
+    console.log(getBlock);
+    return getBlock;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
+
 app.get("/", (req, res) => {
   getAccounts().then((accounts) => {
     res.send(accounts);
+  });
+});
+
+app.get("/gasprice", (req, res) => {
+  getGasPrise().then((gasPrice) => {
+    res.send(gasPrice);
+  });
+});
+
+app.get("/getblock", (req, res) => {
+  getBlock().then((block) => {
+    res.send(block);
   });
 });
 
